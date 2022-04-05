@@ -1,9 +1,6 @@
 ## gugo 
 ### gugo is a go version of the asynchronous crawler framework
 
-## 接口说明
-• 见：api/README.md
-    
 ## 快速开始
 ```go
 package main
