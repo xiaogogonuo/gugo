@@ -1,6 +1,7 @@
 package gugo
 
 import (
+	"log"
 	"net"
 	"net/http"
 	"sync"
@@ -55,6 +56,7 @@ func (d *downloader) download(req *request, concurrent chan struct{}, reqBuf cha
 	d.coverClient(req)
 	res, err := d.Client.Do(req.Request)
 	if err != nil || d.isRetryHTTPCode(res.StatusCode) {
+		log.Println(err)
 		if d.isNeedRetry(req) {
 			go func() { reqBuf <- req }()
 			return
