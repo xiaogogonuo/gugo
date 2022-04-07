@@ -2,6 +2,7 @@ package gugo
 
 import (
 	"github.com/bits-and-blooms/bloom/v3"
+	"log"
 	"sync"
 	"time"
 )
@@ -67,6 +68,7 @@ func (s *scheduler) isUniqueRequest(r *request) bool {
 		s.filter.Add(r.FingerPrint())
 		return true
 	}
+	log.Printf("%s is a repeat request\n", r.URL())
 	return false
 }
 
@@ -75,6 +77,7 @@ func (s *scheduler) isAcceptedSchema(r *request) bool {
 	if r.Schema() == "http" || r.Schema() == "https" {
 		return true
 	}
+	log.Printf("%s is not a http|https request\n", r.URL())
 	return false
 }
 
@@ -86,6 +89,7 @@ func (s *scheduler) isAcceptedDomain(r *request) bool {
 	if _, ok := s.domain[r.Host()]; ok {
 		return true
 	}
+	log.Printf("%s domain is not valid\n", r.URL())
 	return false
 }
 
